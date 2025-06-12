@@ -102,11 +102,11 @@ contract SupplyChainAsset {
         string memory _additionalNotes
     ) public {
         require(!assets[_assetId].exists, "Asset already exists"); // it reverts the message only if the condition is false
-Origin memory origin = Origin(_country, _state, _city);
-CostDetails memory cost = CostDetails(_baseCost, _currency);
-Verification memory verify = Verification(_isCertified,
-_certificationBody, _inspectionDate, _isTamperEvident);
-StorageRequirements memory storageReq = StorageRequirements(_requiresColdChain, _temperatureRange, _humidityLevel);
+        Origin memory origin = Origin(_country, _state, _city);
+        CostDetails memory cost = CostDetails(_baseCost, _currency);
+        Verification memory verify = Verification(_isCertified,
+        _certificationBody, _inspectionDate, _isTamperEvident);
+        StorageRequirements memory storageReq = StorageRequirements(_requiresColdChain, _temperatureRange, _humidityLevel);
 
         assets[_assetId] = Asset({ // new Asset record is permanently saved to the blockchain
             assetId: _assetId,
@@ -172,7 +172,7 @@ StorageRequirements memory storageReq = StorageRequirements(_requiresColdChain, 
         txn.parentTxnIndex = _parentTxnIndex;
     }
 
-function addStageToTransaction(
+    function addStageToTransaction(
     string memory _assetId,
     uint256 _txnIndex,
     uint256 _stageNumber,
@@ -184,7 +184,7 @@ function addStageToTransaction(
     string memory _city,
     string[] memory _keys,
     string[] memory _values
-) public {
+    ) public {
     require(assets[_assetId].exists, "Asset does not exist");
     require(_txnIndex < transactions[_assetId].length, "Transaction does not exist");
     require(_keys.length == _values.length, "Keys and values length mismatch");
@@ -208,24 +208,24 @@ function addStageToTransaction(
 
     // ✅ Push to storage array
     transactions[_assetId][_txnIndex].stages.push(newStage);
-}
+    }
 
     function getTransactionCount(string memory _assetId) public view returns (uint256) {
         return transactions[_assetId].length;
     }
 
     function getTransactionByIndex(string memory _assetId, uint256 index)
- public 
- view 
- returns (
+    public 
+    view 
+    returns (
         string memory, 
         string memory,
         string memory,
         string memory,
         string memory, 
         uint256
-    ) 
-{
+        ) 
+    {
         Transaction storage txn = transactions[_assetId][index];
         return (
             txn.transactionId,
@@ -241,7 +241,7 @@ function addStageToTransaction(
         return assets[_assetId];
     }
 
-function getFullAssetDetails(string memory _assetId) 
+    function getFullAssetDetails(string memory _assetId) 
         public 
         view 
         returns (
